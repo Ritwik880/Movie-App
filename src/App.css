@@ -252,6 +252,8 @@ a:hover img {
     .back-btn {
         margin-bottom: 3rem;
     }
+
+
 }
 
 @media (max-width: 768px) {
@@ -263,4 +265,9 @@ a:hover img {
     .grid-4-col {
         grid-template-columns: 1fr;
     }
+
+    .searchBox {
+        width: 70%;
+    }
+
 }
