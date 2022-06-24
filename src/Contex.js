@@ -11,8 +11,7 @@
 import React, { useContext, useEffect, useState } from "react";
 
 
-// const API_URL = `http://www.omdbapi.com/?apikey=2247867f&s=titanic`
-// const API_URL = `https://jsonplaceholder.typicode.com/posts`
+const API_URL = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}`
 const AppContext = React.createContext();
 
 // we need to create a provider
@@ -20,30 +19,32 @@ const AppProvider = ({ children }) => {
     const [isLodaing, setIsLodaing] = useState(true)
     const [movie, setMovie] = useState([])
     const [isError, setIsError] = useState({ show: "false", msg: "" })
-    const getMovies = async () => {
+    const [query, setQuery] = useState('titanic');
+    const [refreshlist, setRefreshList] = useState(false);
+    const getMovies = async (url) => {
         try {
-            const res = await fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=titanic`);
+            const res = await fetch(url);
             const data = await res.json();
-            console.log(data);
-            setMovie(data.Search)
-            // if (data.Response === true) {
-            //     setIsLodaing(false)
-            //     setMovie(data.Search)
-            // } else {
-            //     setIsError({
-            //         show: true,
-            //         msg: data.error
-            //     })
-            // }
+            if (data.Response === "True") {
+                setIsLodaing(false);
+                setMovie(data.Search);
+            }
+            else {
+                setIsError({
+                    show: true,
+                    msg: data.error
+                })
+            }
         } catch (error) {
             console.log(error);
         }
     }
     useEffect(() => {
-        getMovies()
-    }, [])
+        getMovies(`${API_URL}&s=${query}`);
+        setRefreshList(false);
+    }, [query, refreshlist])
 
-    return <AppContext.Provider value={{ isLodaing, movie, isError }}>{children}</AppContext.Provider>
+    return <AppContext.Provider value={{ isLodaing, movie, isError, query, setQuery, setRefreshList }}>{children}</AppContext.Provider>
 }
 
 // creating custom hooks

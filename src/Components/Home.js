@@ -1,6 +1,7 @@
 import React from 'react'
 import Movie from './Movie'
 
+
 const Home = () => {
     // Both are same just for simplicity we use second one
 
@@ -8,6 +9,7 @@ const Home = () => {
     // const name = useGlobalContext();
     return (
         <>
+            {/* <Search /> */}
             <Movie />
         </>
     )
