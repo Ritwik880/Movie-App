@@ -5,8 +5,12 @@ const Search = () => {
     const { query, setQuery, isError, setRefreshList } = useGlobalContext();
     const [clear, setClear] = useState(false);
     const handleChange = (e) => {
+        const searchInput = e.target.value;
         setQuery(e.target.value);
-        setClear(true)
+        setClear(true);
+        if (searchInput === '') {
+            setRefreshList(true);
+        }
 
     }
     const clearInput = () => {

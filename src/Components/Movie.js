@@ -20,13 +20,13 @@ const Spinner = styled("div")(({ theme }) => ({
 
 const Movie = () => {
     const { movie, isLodaing, setIsLodaing } = useGlobalContext();
-    useEffect(() => {
-        if (isLodaing) {
-            setTimeout(() => {
-                setIsLodaing(false);
-            }, 6000);
-        }
-    }, [isLodaing]);
+    // useEffect(() => {
+    //     if (isLodaing) {
+    //         setTimeout(() => {
+    //             setIsLodaing(false);
+    //         }, 6000);
+    //     }
+    // }, [isLodaing]);
     return (
         <>
             <Wrapper>
