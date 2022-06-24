@@ -22,7 +22,7 @@ const AppProvider = ({ children }) => {
     const [isError, setIsError] = useState({ show: "false", msg: "" })
     const getMovies = async () => {
         try {
-            const res = await fetch(`http://www.omdbapi.com/?apikey=2247867f&s=netflix`);
+            const res = await fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=titanic`);
             const data = await res.json();
             console.log(data);
             setMovie(data.Search)

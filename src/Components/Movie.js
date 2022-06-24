@@ -15,15 +15,11 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import SearchIcon from '@mui/icons-material/Search';
 import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { NavLink } from 'react-router-dom';
 
 const Wrapper = styled("div")(({ theme }) => ({
     height: 'auto',
     background: '#dff9fb',
-    padding: theme.spacing(4),
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column'
 
 }));
 const Search = styled('div')(({ theme }) => ({
@@ -89,76 +85,25 @@ const Movie = () => {
     return (
         <>
             <Wrapper>
-                <Typography textAlign='center' variant='h2'>
-                    Movies
-                </Typography>
-                <Search>
-                    <SearchIconWrapper>
-                        <SearchIcon />
-                    </SearchIconWrapper>
-                    <StyledInputBase
-                        placeholder="Search…"
-                        inputProps={{ 'aria-label': 'search' }}
-                        onChange={handleChange}
-                        value={serachValue}
-                    />
-                </Search>
-                <div className="row m-2">
+                <div className="container grid grid-4-col">
                     {
                         movie.map((curMovie, index) => {
-                            return (
-
-                                <Grid container spacing={4} key={index}>
-                                    <Grid item sm={6} lg={4} md={4}>
-                                        <Card style={{ minHeight: 225 }}>
-                                            <CardHeader
-                                                avatar={
-                                                    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                                                        {
-                                                            curMovie.Title
-                                                        }
-                                                    </Avatar>
-                                                }
-                                                action={
-                                                    <IconButton aria-label="settings">
-                                                        <MoreVertIcon />
-                                                    </IconButton>
-                                                }
-                                                title="Shrimp and Chorizo Paella"
-                                                subheader={curMovie.Year}
-                                            />
-                                            <CardMedia
-                                                component="img"
-                                                height="194"
-                                                image={curMovie.Poster}
-                                                alt="poster"
-                                            />
-                                            <CardContent>
-                                                <Typography variant="body2" color="text.secondary">
-                                                    This impressive paella is a perfect party dish and a fun meal to cook
-                                                    together with your guests. Add 1 cup of frozen peas along with the mussels,
-                                                    if you like.
-                                                </Typography>
-                                            </CardContent>
-                                            <CardActions disableSpacing>
-                                                <IconButton aria-label="add to favorites">
-                                                    <FavoriteIcon />
-                                                </IconButton>
-                                                <IconButton aria-label="share">
-                                                    <ShareIcon />
-                                                </IconButton>
-                                            </CardActions>
-                                        </Card>
-
-                                    </Grid>
-
-                                </Grid>
-                            )
-
+                            const { imdbID, Title, Poster } = curMovie;
+                            const movieName = Title.substring(0, 15);
+                            return <NavLink to={`movie/${imdbID}`} key={index}>
+                                <div className="card">
+                                    <div className="card-info">
+                                        <h2>
+                                            {movieName.length > 15 ? `${movieName}...` : movieName}
+                                        </h2>
+                                        <img src={Poster} alt={imdbID} />
+                                    </div>
+                                </div>
+                            </NavLink>
                         })
                     }
-                </div>
 
+                </div>
             </Wrapper>
 
         </>
